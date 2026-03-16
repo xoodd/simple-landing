@@ -3,747 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexChat | 연결, 그 이상의 가치</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>이칸저칸 | Subway Life Upgrade</title>
     <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
         :root {
-            --primary: #8B5CF6;
-            --primary-dark: #7C3AED;
-            --primary-light: #A78BFA;
-            --secondary: #0F0F23;
-            --accent: #06B6D4;
-            --accent-pink: #EC4899;
-            --accent-mint: #34D399;
-            --bg-dark: #0A0A1A;
-            --bg-card: #13132A;
-            --bg-glass: rgba(255, 255, 255, 0.05);
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --gradient: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #06B6D4 100%);
-            --gradient-reverse: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Outfit', sans-serif; 
-            line-height: 1.6; 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            background: var(--bg-dark);
-        }
-
-        header { 
-            padding: 20px 8%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: fixed; 
-            width: 100%; 
-            background: rgba(10, 10, 26, 0.8); 
-            backdrop-filter: blur(20px); 
-            z-index: 1000;
-            animation: slideDown 0.8s ease;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .logo { 
-            font-size: 1.8rem; 
-            font-weight: 800; 
-            background: var(--gradient); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .btn-download { 
-            background: var(--gradient); 
-            color: white; 
-            padding: 12px 28px; 
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-download:hover { 
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
-        }
-
-        .hero { 
-            min-height: 100vh; 
-            padding: 160px 8% 120px; 
-            display: flex; 
-            align-items: center; 
-            background: 
-                radial-gradient(ellipse at 10% 90%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 90% 10%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
-                var(--bg-dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--gradient);
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.2;
-            top: -200px;
-            right: -150px;
-            animation: float 10s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: var(--gradient-reverse);
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.15;
-            bottom: -100px;
-            left: -100px;
-            animation: float 12s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.05); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-
-        .hero-content {
-            flex: 1;
-            max-width: 620px;
-            z-index: 1;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from { transform: translateY(40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-glass);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--accent-mint);
-            margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-badge span {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .hero-content h1 { 
-            font-size: 4.2rem; 
-            line-height: 1.1; 
-            margin-bottom: 24px; 
-            font-weight: 800;
-            letter-spacing: -2px;
-        }
-
-        .hero-content h1 strong {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-content p { 
-            font-size: 1.25rem; 
-            color: var(--text-muted); 
-            margin-bottom: 40px;
-            font-weight: 400;
-            line-height: 1.8;
-        }
-
-        .store-btns {
-            display: flex;
-            gap: 16px;
-        }
-
-        .store-btn {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .store-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
-        }
-
-        .hero-visual { 
-            flex: 1; 
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-
-        .phone-mockup {
-            width: 280px;
-            height: 560px;
-            background: var(--secondary);
-            border-radius: 45px;
-            border: 12px solid #1A1A2E;
-            position: relative;
-            box-shadow: 
-                0 40px 80px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-                0 0 100px rgba(139, 92, 246, 0.2);
-            overflow: hidden;
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #0F0F23 0%, #1A1A2E 100%);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chat-bubble {
-            max-width: 85%;
-            padding: 14px 18px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            animation: bubbleIn 0.5s ease both;
-        }
-
-        .chat-bubble.received {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
-            color: white;
-            border-bottom-left-radius: 6px;
-            align-self: flex-start;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .chat-bubble.sent {
-            background: var(--gradient);
-            color: white;
-            border-bottom-right-radius: 6px;
-            align-self: flex-end;
-            animation-delay: 0.3s;
-        }
-
-        @keyframes bubbleIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .app-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gradient);
-        }
-
-        .features { 
-            padding: 120px 8%; 
-            background: var(--bg-dark);
-            text-align: center;
-            position: relative;
-        }
-
-        .features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-        }
-
-        .features h2 { 
-            margin-bottom: 16px; 
-            font-size: 2.8rem; 
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .features-subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 30px; 
-        }
-
-        .card { 
-            padding: 50px 35px; 
-            border-radius: 30px; 
-            background: var(--bg-card);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .card:hover { 
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 25px;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-        }
-
-        .card h3 { 
-            margin-bottom: 15px; 
-            color: var(--text-main);
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .card p { 
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .stats {
-            padding: 100px 8%;
-            background: var(--bg-card);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: var(--gradient);
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .testimonials {
-            padding: 120px 8%;
-            background: var(--bg-dark);
-            text-align: center;
-        }
-
-        .testimonials h2 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 60px;
-            letter-spacing: -1px;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background: var(--bg-card);
-            border-radius: 24px;
-            padding: 35px;
-            text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        .testimonial-text {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-bottom: 24px;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gradient);
-        }
-
-        .author-info strong {
-            display: block;
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .author-info span {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .cta {
-            padding: 120px 8%;
-            background: 
-                radial-gradient(ellipse at 30% 70%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-                var(--bg-dark);
-            text-align: center;
-            position: relative;
-        }
-
-        .cta h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .cta h2 strong {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .cta p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(139, 92, 246, 0.5);
-        }
-
-        .btn-secondary {
-            background: var(--bg-glass);
-            color: var(--text-main);
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        footer { 
-            padding: 50px 8%; 
-            background: var(--bg-card); 
-            color: white; 
-            text-align: center; 
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        footer p {
-            opacity: 0.5;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 1024px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+            --primary: #FF6B00;
+            --secondary: #333;
+            --bg-light: #FBFBFD;
+            --text-main: #1D1D1F;
+            --text-sub: #86868B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
+        body { background-color: white; color: var(--text-main); -webkit-font-smoothing: antialiased; }
+
+        /* Navigation */
+        nav { padding: 30px 8%; display: flex; justify-content: space-between; align-items: center; position: absolute; width: 100%; z-index: 100; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 500; margin-left: 30px; font-size: 0.95rem; }
+
+        /* Hero Section */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: var(--bg-light); padding: 0 5%; }
+        .hero span { color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; display: block; }
+        .hero h1 { font-size: 4.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -3px; margin-bottom: 30px; }
+        .hero p { font-size: 1.4rem; color: var(--text-sub); margin-bottom: 40px; font-weight: 400; }
+        
+        .btn-main { background: var(--primary); color: white; padding: 18px 45px; border-radius: 40px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s; box-shadow: 0 10px 20px rgba(255,107,0,0.2); }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255,107,0,0.3); }
+
+        /* Feature Section */
+        .section { padding: 150px 10%; }
+        .section-header { text-align: center; margin-bottom: 100px; }
+        .section-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .feature-card { background: var(--bg-light); padding: 50px 40px; border-radius: 32px; transition: 0.4s; border: 1px solid transparent; }
+        .feature-card:hover { background: white; border-color: #eee; box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
+        .feature-card h3 { font-size: 1.6rem; margin-bottom: 20px; word-break: keep-all; }
+        .feature-card p { color: var(--text-sub); font-size: 1.05rem; line-height: 1.7; }
+        .icon-circle { width: 60px; height: 60px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; font-size: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.03); }
+
+        /* Bottom CTA */
+        .cta-footer { background: var(--text-main); color: white; padding: 120px 10%; text-align: center; border-radius: 60px 60px 0 0; }
+        .cta-footer h2 { font-size: 3.5rem; margin-bottom: 30px; font-weight: 800; letter-spacing: -2px; }
+        .cta-footer p { color: #888; margin-bottom: 50px; font-size: 1.2rem; }
+
+        /* Footer - 실명 제거 버전 */
+        footer { background: var(--text-main); color: #555; padding: 0 10% 60px; text-align: center; border-top: 1px solid #333; }
+        .footer-content { padding-top: 40px; }
+        .team-tag { display: inline-block; padding: 6px 18px; border: 1px solid #444; border-radius: 20px; color: #999; font-size: 0.85rem; margin-bottom: 20px; }
 
         @media (max-width: 768px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 140px; }
-            .hero-content { margin-bottom: 60px; }
-            .hero-content h1 { font-size: 2.8rem; }
-            .store-btns { justify-content: center; }
-            .grid { grid-template-columns: 1fr; }
-            .features h2 { font-size: 2.2rem; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-            .testimonial-grid { grid-template-columns: 1fr; }
-            .cta h2 { font-size: 2.2rem; }
-            .cta-buttons { flex-direction: column; align-items: center; }
+            .hero h1 { font-size: 2.8rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            nav { padding: 20px 5%; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">NexChat</div>
-        <a href="#" class="btn-download">무료 다운로드</a>
-    </header>
+    <nav>
+        <div class="logo">이칸저칸</div>
+        <div class="nav-links">
+            <a href="#features">서비스 소개</a>
+            <a href="#team">팀 비전</a>
+        </div>
+    </nav>
 
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>●</span> 이제 새로운 시대의 메신저가来临
-            </div>
-            <h1>세상의 모든 대화,<br><strong>더 자유로워집니다</strong></h1>
-            <p>보안은 강력하게, 인터페이스는 가볍게.<br>NexChat으로 소중한 사람들과 끊김 없이 소통하세요.</p>
-            <div class="store-btns">
-                <a href="#" class="store-btn">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store" height="48">
-                </a>
-                <a href="#" class="store-btn">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" height="48">
-                </a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="phone-mockup">
-                <div class="phone-screen">
-                    <div class="app-header">
-                        <div class="avatar"></div>
-                        <div style="color: white; font-weight: 600;">NexChat</div>
-                    </div>
-                    <div class="chat-bubble received">안녕! NexChat 써봤어?</div>
-                    <div class="chat-bubble sent">응, 디자인 진짜 이쁘더라!</div>
-                    <div class="chat-bubble received">컬러감이 새로워서 좋더라고</div>
-                    <div class="chat-bubble sent">맞아, 다른 앱들이랑 완전 다르지</div>
-                </div>
-            </div>
-        </div>
+        <span>Digital Hanaro 9th Project</span>
+        <h1>지하철에서의 시간이<br>데이터가 되는 순간</h1>
+        <p>불편한 민원 대신 즐거운 공유를,<br>이칸저칸이 만드는 새로운 이동 문화</p>
+        <a href="#" class="btn-main">지금 다운로드하기</a>
     </section>
 
-    <section class="features">
+    <section class="section" id="features">
         <div class="section-header">
-            <h2>왜 NexChat인가요?</h2>
-            <p class="features-subtitle">기존 메신저와는 다른 특별한 경험</p>
+            <h2>지하철 생활의<br>기준을 바꿉니다</h2>
         </div>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">🔒</div>
-                <h3>종단간 암호화</h3>
-                <p>당신의 대화는 오직 당신과 대화 상대만 읽을 수 있습니다. 누구도 들여다볼 수 없어요.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon-circle">📢</div>
+                <h3>실시간 상황 공유</h3>
+                <p>연착 소식부터 돌발 상황까지, 같은 노선 사용자들의 생생한 현장 리포트를 확인하세요.</p>
             </div>
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>초고속 전송</h3>
-                <p>대용량 파일과 고화질 사진도 순식간에 공유하세요. 지연 없이 부드럽게.</p>
+            <div class="feature-card">
+                <div class="icon-circle">💺</div>
+                <h3>스마트 착석 가이드</h3>
+                <p>단순한 혼잡도를 넘어, 데이터 분석을 통해 가장 앉아갈 확률이 높은 칸을 안내합니다.</p>
             </div>
-            <div class="card">
-                <div class="card-icon">🎨</div>
-                <h3>무한 커스텀</h3>
-                <p>나만의 감성으로 채팅창을 자유롭게 꾸며보세요. 테마, 폰트, 이모티콘까지.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🤖</div>
-                <h3>AI 스마트返信</h3>
-                <p>AI가 대화를 분석하고 스마트한 답장 제안을 도와드려요.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">☁️</div>
-                <h3>무제한 클라우드</h3>
-                <p>모든 채팅纪录과 미디어 파일을 무제한으로 클라우드에 저장하세요.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🌐</div>
-                <h3>다국어 지원</h3>
-                <p>100개 이상의 언어를 지원해 어떤 국가에서도困擾 없이 소통하세요.</p>
+            <div class="feature-card">
+                <div class="icon-circle">📊</div>
+                <h3>이동 리포트 & 배지</h3>
+                <p>내가 지나온 경로를 데이터로 기록하고, 이동의 성취감을 배지로 보상받으세요.</p>
             </div>
         </div>
     </section>
 
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">50M+</div>
-                <div class="stat-label">글로벌 사용자</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">150+</div>
-                <div class="stat-label">지원 언어</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">업타임</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">⭐4.9</div>
-                <div class="stat-label">앱 스토어 평점</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <h2>사용자 후기</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">"디자이너로서 여러 앱을 써봤지만, NexChat 만큼 디자인이 세련된 메신저는 처음이에요. 라일락 그라데이션 너무 예쁨!"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div class="author-info">
-                        <strong>김디자인</strong>
-                        <span>UI/UX Designer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"해외 친구랑 채팅할 때 번역 기능이 되게 편리해요. 별도의 번역 앱 안 띄워도 되니까 대화 flow가 끊기지 않아요."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div class="author-info">
-                        <strong>이가은</strong>
-                        <span>留学生</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"클라우드 저장 지원이 너무 좋아서 핸드폰 바꿔도 채팅 기록이 완벽하게 유지돼요. 이거 하나만으로도 충분해요."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar"></div>
-                    <div class="author-info">
-                        <strong>박기술</strong>
-                        <span>개발자</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta">
-        <h2>지금 바로<br><strong>무료로 시작</strong>하세요</h2>
-        <p>첫 달mium 무료 체험,信用卡 없이 바로 시작</p>
-        <div class="cta-buttons">
-            <a href="#" class="btn-primary">무료 다운로드</a>
-            <a href="#" class="btn-secondary">더 알아보기</a>
-        </div>
+    <section class="cta-footer">
+        <h2>이동, 그 이상의 가치</h2>
+        <p>이칸저칸과 함께라면 당신의 출퇴근길이 특별해집니다.</p>
+        <div class="team-tag">Project by Team 썹타는중</div>
     </section>
 
     <footer>
-        <p>&copy; 2026 NexChat Inc. All rights reserved.</p>
+        <div class="footer-content">
+            <p>© 2026 Team Sub-Ride. Created by Data Analysts & Service Planners.</p>
+            <p style="margin-top: 8px; font-size: 0.8rem;">디지털 하나로 9기 데이터분석 및 서비스기획 프로젝트</p>
+        </div>
     </footer>
 
 </body>
